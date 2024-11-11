@@ -8,7 +8,7 @@
 
 // CardDAV server details
 const std::string HOST = "www.google.com";
-const std::string CARD_DAV_URL = "/carddav/v1/principals/emailspamtrap@gmail.com/lists/default/";
+const std::string CARD_DAV_URL = "/carddav/v1/principals/xxxxxxxxx@gmail.com/lists/default/";
 const std::string USERNAME = "xxxxxxxxx@gmail.com";
 const std::string PASSWORD = "16-characters Application Password";
 const std::string OUTPUT_DIR = "./";
