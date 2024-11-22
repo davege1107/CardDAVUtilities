@@ -1,3 +1,4 @@
+# Yahoo dropped support of CardDAV/CalDAV for some or all of its account around November 18 2024
 import os
 import re
 import requests
