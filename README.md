@@ -1,6 +1,6 @@
 # CardDAVUtilities
 
-Backup of Google/Yahoo/iCloud contacts using CardDAV
+Backup of Google and iCloud contacts using CardDAV
 
 These programs generate combined vcf file that contains all contacts of Google/Yahoo/iCloud accounts
 
