@@ -1,7 +1,7 @@
 # CardDAVUtilities
 
 1. Backup of Google, iCloud, mail.com, Yahoo and AOL contacts using CardDAV
-2. Purge of Yahoo and AOL contacts. This option is missing from Yahoo and AOL WebUI
+2. Purge of Yahoo and AOL contacts. This option is missing from Yahoo and AOL WebUI 
 
 Backup Python3 programs generate combined vcf file that contains all contacts of Google/Yahoo/AOL/iCloud/mail.com accounts in folder contacts_xxxxxx (where xxxxxx is yahoo, google etc.)
 
