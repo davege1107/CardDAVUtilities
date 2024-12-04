@@ -10,4 +10,3 @@ Google: You have to enable 2FA. Then generate Application Password to be used to
 
 Please note: Google CardDAV server is an "undocumented feature" and could stop working any time.
 
-Yahoo dropped support of CardDAV/CalDAV for some or all of its accounts around November 18 2024
