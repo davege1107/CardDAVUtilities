@@ -1,15 +1,17 @@
 import os
-import re
 import requests
 from xml.etree import ElementTree as ET
 
 # CardDAV server details
-#Replace xxxxxxxxx@yahoo.com by your actual Yahoo email address
-CARD_DAV_URL = "https://carddav.address.yahoo.com/dav/xxxxxxxxx@yahoo.com/Contacts/"
-USERNAME = "xxxxxxxxx@yahoo.com"
-#This is "Application Password", not a main Yahoo Account password
-PASSWORD = "application_password_16_digits"
-OUTPUT_DIR = "./yahoo_contacts"  # Directory to save .vcf files
+CARD_DAV_URL = "https://carddav.address.yahoo.com/dav/xxxxxx@yahoo.com/Contacts/"
+USERNAME = "xxxxxx@yahoo.com"
+# This is an application password, not your main Yahoo password
+#Generate it here https://login.yahoo.com/myaccount/security
+PASSWORD = "16-digit application password"
+
+# Directory to save the contacts
+OUTPUT_DIR = "./contacts_yahoo"
+OUTPUT_FILE = os.path.join(OUTPUT_DIR, "yahoo_contacts.vcf")
 
 # XML body for the PROPFIND request
 PROPFIND_BODY = """<?xml version="1.0" encoding="UTF-8"?>
@@ -26,80 +28,17 @@ PROPFIND_BODY = """<?xml version="1.0" encoding="UTF-8"?>
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
-def sanitize_filename(filename):
+def clean_vcard(vcard_data):
     """
-    Replace forbidden characters in filenames with underscores.
+    Remove empty lines from the vCard data.
     """
-    sanitized = re.sub(r'[<>:"/\\|?*]', '_', filename)
-    return sanitized
-
-def clean_vcard(vcard_content):
-    """
-    Clean and normalize vCard content.
-    - Replace unwanted characters like '\r' with '\n'.
-    - Strip trailing/leading whitespace on each line.
-    """
-    # Replace \r\n or \r with \n and strip extra whitespace
-    lines = vcard_content.replace('\r\n', '\n').replace('\r', '\n').split('\n')
-    cleaned_lines = [line.strip() for line in lines if line.strip()]
+    lines = vcard_data.splitlines()
+    cleaned_lines = [line for line in lines if line.strip()]  # Remove empty or whitespace-only lines
     return "\n".join(cleaned_lines)
-
-def save_contact(filename, content):
-    """
-    Save the cleaned vCard content to a sanitized filename and append it to the merged file.
-    """
-    # Sanitize the filename
-    sanitized_filename = sanitize_filename(filename)
-    cleaned_content = clean_vcard(content)
-
-    # Save individual vCard file
-    filepath = os.path.join(OUTPUT_DIR, sanitized_filename)
-    with open(filepath, "w", encoding="utf-8") as vcf_file:
-        vcf_file.write(cleaned_content)
-    print(f"Saved contact to {filepath}")
-
-    # Append to merged file
-    with open(os.path.join(OUTPUT_DIR, "contacts_merged.vcf"), "a", encoding="utf-8") as merged_file:
-        merged_file.write(cleaned_content + "\n")  # Ensure a newline between contacts
-
-
-def merge_contacts():
-    """
-    Create a single merged file from all vCard files in the directory.
-    """
-    merged_filename = os.path.join(OUTPUT_DIR, "contacts_merged.vcf")
-    with open(merged_filename, "w", encoding="utf-8") as merged_file:
-        print(f"Creating merged vCard file: {merged_filename}")
-
-    # Fetch and save contacts
-    fetch_contacts()
-    print(f"All contacts merged into {merged_filename}")
-
-def fetch_and_save_contact(contact_url):
-    """
-    Fetch and save a single contact from the CardDAV server.
-    """
-    # Construct the full URL for the contact
-    if contact_url.startswith("/"):
-        contact_full_url = "https://carddav.address.yahoo.com" + contact_url
-    elif contact_url.startswith("http"):
-        contact_full_url = contact_url
-    else:
-        contact_full_url = CARD_DAV_URL.rstrip("/") + "/" + contact_url.lstrip("/")
-
-    print(f"Fetching contact: {contact_full_url}")
-    response = requests.get(contact_full_url, auth=(USERNAME, PASSWORD))
-
-    if response.status_code == 200:
-        vcard_content = response.content.decode("utf-8")
-        save_contact(contact_url.split("/")[-1], vcard_content)
-    else:
-        print(f"Failed to fetch contact {contact_url}: {response.status_code}")
-        print(f"Response Content: {response.content.decode('utf-8')}")
 
 def fetch_contacts():
     """
-    Fetch the list of contacts from the CardDAV server and save them.
+    Fetch the list of contacts from the CardDAV server.
     """
     headers = {
         "Depth": "1",
@@ -118,7 +57,7 @@ def fetch_contacts():
     if response.status_code not in [200, 207]:
         print(f"Error fetching contacts: {response.status_code}")
         print(response.content.decode("utf-8"))
-        return
+        return []
 
     # Parse the response XML
     root = ET.fromstring(response.content)
@@ -131,9 +70,46 @@ def fetch_contacts():
         if href is not None and href.text.endswith(".vcf"):
             contacts.append(href.text)
 
-    print(f"Found {len(contacts)} contacts.")
-    for contact_url in contacts:
-        fetch_and_save_contact(contact_url)
+    return contacts
+
+def fetch_contact_data(contact_url):
+    """
+    Fetch the data for a single contact and return it as text.
+    """
+    if contact_url.startswith("/"):
+        contact_full_url = "https://carddav.address.yahoo.com" + contact_url
+    elif contact_url.startswith("http"):
+        contact_full_url = contact_url
+    else:
+        contact_full_url = CARD_DAV_URL.rstrip("/") + "/" + contact_url.lstrip("/")
+
+    print(f"Fetching contact: {contact_full_url}")
+    response = requests.get(contact_full_url, auth=(USERNAME, PASSWORD))
+
+    if response.status_code == 200:
+        return clean_vcard(response.text)  # Clean the vCard data
+    else:
+        print(f"Failed to fetch contact {contact_url}: {response.status_code}")
+        print(response.content.decode("utf-8"))
+        return None
+
+def save_contacts_to_file(contacts, output_file):
+    """
+    Save all contact data into a single VCF file.
+    """
+    with open(output_file, "w", encoding="utf-8") as f:
+        for contact_url in contacts:
+            contact_data = fetch_contact_data(contact_url)
+            if contact_data:
+                f.write(contact_data)
+                f.write("\n")  # Ensure each contact is separated by a newline
+
+    print(f"Contacts saved to {output_file}")
 
 if __name__ == "__main__":
-    fetch_contacts()
+    # Fetch the list of contacts
+    contacts = fetch_contacts()
+    print(f"Found {len(contacts)} contacts.")
+
+    # Save all contacts into a single file
+    save_contacts_to_file(contacts, OUTPUT_FILE)
