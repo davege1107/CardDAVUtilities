@@ -3,12 +3,16 @@ import requests
 from xml.etree import ElementTree as ET
 
 # CardDAV server details
-#Replace xxxxxxxxx@gmail.com by your actual Gmail address
-CARD_DAV_URL = "https://www.google.com/carddav/v1/principals/xxxxxxxxx@gmail.com/lists/default/"
-USERNAME = "xxxxxxxxx@gmail.com"
-#This is "Application Password", not a main Google Account password
-PASSWORD = "application_password_16_characters"
-OUTPUT_DIR = "./google_contacts"  # Directory to save .vcf files
+# Base URL for CardDAV server
+BASE_URL = "https://www.google.com/carddav/v1/principals"
+#Replace xxxxxx@gmail.com by your actual Gmail email address
+USERNAME = "xxxxxx@gmail.com"
+#Enable 2FA and generate Application Password. You can't use your main Google password
+PASSWORD = "16-character Application password"
+OUTPUT_DIR = "./contacts_google"  # Directory to save .vcf files
+
+# Construct the CardDAV URL
+CARD_DAV_URL = f"{BASE_URL}/{USERNAME}/lists/default/"
 
 # Ensure output directory exists
 if not os.path.exists(OUTPUT_DIR):
@@ -105,5 +109,3 @@ if __name__ == "__main__":
     print(f"Found {len(hrefs)} contacts.")
     for href in hrefs:
         fetch_contact(href, combined_file_path)
-
-
