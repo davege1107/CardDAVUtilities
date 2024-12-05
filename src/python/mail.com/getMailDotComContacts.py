@@ -68,7 +68,8 @@ def clean_vcard(vcard_data):
     Remove empty lines from the vCard data.
     """
     lines = vcard_data.splitlines()
-    cleaned_lines = [line for line in lines if line.strip()]  # Remove empty or whitespace-only lines
+    cleaned_lines = [line.strip() for line in lines if line.strip() and not line.startswith("PRODID")] # Remove empty or whitespace-only lines and PRODID property
+
     return "\n".join(cleaned_lines)
 
 def resolve_url(base_url, href):
