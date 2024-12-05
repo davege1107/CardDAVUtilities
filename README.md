@@ -18,5 +18,6 @@ Replace xxxxxxxxx@gmail.com / xxxxxxxxx@yahoo.com / xxxxxxxxx@icloud.com / xxxxx
 Google: You have to enable 2FA. Then generate Application Password to be used to login to CardDAV server of Google.
 
 Please note: Google CardDAV server is an "undocumented feature" and could stop working any time.
-Thre are C++ and C# versions of Googlee Contacts Backup. Use them instead of Python version if you want .
+
+There are C++ and C# versions of Googlee Contacts Backup. Use them instead of Python version if you want .
 
