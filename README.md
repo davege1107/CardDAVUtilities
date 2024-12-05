@@ -19,5 +19,5 @@ Google: You have to enable 2FA. Then generate Application Password to be used to
 
 Please note: Google CardDAV server is an "undocumented feature" and could stop working any time.
 
-There are C++ and C# versions of Googlee Contacts Backup. Use them instead of Python version if you want .
+There are C++ and C# versions of Google Contacts Backup. Use them instead of Python version if you want .
 
