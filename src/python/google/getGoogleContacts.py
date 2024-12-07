@@ -9,10 +9,11 @@ BASE_URL = "https://www.google.com/carddav/v1/principals"
 USERNAME = "xxxxxx@gmail.com"
 #Enable 2FA and generate Application Password. You can't use your main Google password
 PASSWORD = "16-character Application password"
-OUTPUT_DIR = "./contacts_google"  # Directory to save .vcf files
-
 # Construct the CardDAV URL
 CARD_DAV_URL = f"{BASE_URL}/{USERNAME}/lists/default/"
+
+OUTPUT_DIR = "./contacts_google"  # Directory to save .vcf files
+
 
 # Ensure output directory exists
 if not os.path.exists(OUTPUT_DIR):
