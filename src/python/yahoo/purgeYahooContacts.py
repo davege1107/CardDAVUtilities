@@ -10,7 +10,7 @@ from xml.etree import ElementTree as ET
 # Configuration for CardDAV server
 #Replace xxxxxxxxx@yahoo.com by your actual Yahoo email address
 # you can use also other Yahoo domains like
-# yahoo.ca, yahho.jp, yahoo.in, yahoo.co.uk, yahoo.co.il, myyahoo.com, currently.com, att.net
+# yahoo.ca, yahoo.jp, yahoo.in, yahoo.co.uk, yahoo.co.il, myyahoo.com, currently.com, att.net
 USERNAME = "xxxxxxxxx@yahoo.com" 
 
 #This is "Application Password", not a main Yahoo Account password
