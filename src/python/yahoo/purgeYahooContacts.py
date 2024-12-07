@@ -6,15 +6,15 @@ from xml.etree import ElementTree as ET
 #  This program deletes all your Yahoo contacts without option to recover them!!!
 ###########################################
 
-# CardDAV server details
-# Configuration for CardDAV server
-#Replace xxxxxxxxx@yahoo.com by your actual Yahoo email address
-# you can use also other Yahoo domains like
+# Replace xxxxxxxxx@yahoo.com by your actual Yahoo email address
+# You can use also other Yahoo domains like
 # yahoo.ca, yahoo.jp, yahoo.in, yahoo.co.uk, yahoo.co.il, myyahoo.com, currently.com, att.net
 USERNAME = "xxxxxxxxx@yahoo.com" 
 
 #This is "Application Password", not a main Yahoo Account password
 PASSWORD = "application_password_16_digits"  # Replace with your application-specific password
+
+# CardDAV server details. It is not a base URL but Address Book URL
 CARD_DAV_URL = f"https://carddav.address.yahoo.com/dav/{USERNAME}/Contacts/"
 
 # XML body for the PROPFIND request
