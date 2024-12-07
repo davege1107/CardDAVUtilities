@@ -7,9 +7,12 @@ from xml.etree import ElementTree as ET
 ###########################################
 
 # CardDAV server details
-#Replace xxxxxxxxx@yahoo.com by your actual Yahoo email address
 # Configuration for CardDAV server
-USERNAME = "xxxxxxxxx@yahoo.com"  # Replace with your Yahoo email address
+#Replace xxxxxxxxx@yahoo.com by your actual Yahoo email address
+# you can use also other Yahoo domains like
+# yahoo.ca, yahho.jp, yahoo.in, yahoo.co.uk, yahoo.co.il, myyahoo.com, currently.com, att.net
+USERNAME = "xxxxxxxxx@yahoo.com" 
+
 #This is "Application Password", not a main Yahoo Account password
 PASSWORD = "application_password_16_digits"  # Replace with your application-specific password
 CARD_DAV_URL = f"https://carddav.address.yahoo.com/dav/{USERNAME}/Contacts/"
