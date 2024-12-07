@@ -2,11 +2,10 @@ import os
 import requests
 from xml.etree import ElementTree as ET
 
-# CardDAV server details
-CARD_DAV_URL = "https://carddav.aol.com/dav/xxxxxx@aol.com/Contacts/"
-USERNAME = "xxxxxx@aol.com"
-#16-digits Application Password, not your main password
+# Configuration for CardDAV server
+USERNAME = "xxxxxx@aol.com"  # Replace with your AOL email address
 PASSWORD = "16-digits Application Password"  # Replace with your app-specific password
+CARD_DAV_URL = f"https://carddav.aol.com/dav/{USERNAME}/Contacts/"
 
 # Directory to save the contacts
 OUTPUT_DIR = "./contacts_aol"
