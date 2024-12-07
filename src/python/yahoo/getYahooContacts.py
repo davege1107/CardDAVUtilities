@@ -3,11 +3,15 @@ import requests
 from xml.etree import ElementTree as ET
 
 # CardDAV server details
-CARD_DAV_URL = "https://carddav.address.yahoo.com/dav/xxxxxx@yahoo.com/Contacts/"
-USERNAME = "xxxxxx@yahoo.com"
-# This is an application password, not your main Yahoo password
-#Generate it here https://login.yahoo.com/myaccount/security
-PASSWORD = "16-digit application password"
+# Replace xxxxxxxxx@yahoo.com by your actual Yahoo email address
+# You can use also other Yahoo domains like
+# yahoo.ca, yahoo.jp, yahoo.in, yahoo.co.uk, yahoo.co.il, myyahoo.com, currently.com, att.net
+USERNAME = "xxxxxxxxx@yahoo.com" # or xxxxxx@yahoo.co.uk or xxxxxx@currently.com etc.
+
+#This is "Application Password", not a main Yahoo Account password
+PASSWORD = "application_password_16_digits"  # Replace with your application-specific password
+CARD_DAV_URL = f"https://carddav.address.yahoo.com/dav/{USERNAME}/Contacts/"
+
 
 # Directory to save the contacts
 OUTPUT_DIR = "./contacts_yahoo"
