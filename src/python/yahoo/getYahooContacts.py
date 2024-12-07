@@ -2,7 +2,6 @@ import os
 import requests
 from xml.etree import ElementTree as ET
 
-# CardDAV server details
 # Replace xxxxxxxxx@yahoo.com by your actual Yahoo email address
 # You can use also other Yahoo domains like
 # yahoo.ca, yahoo.jp, yahoo.in, yahoo.co.uk, yahoo.co.il, myyahoo.com, currently.com, att.net
@@ -10,6 +9,8 @@ USERNAME = "xxxxxxxxx@yahoo.com" # or xxxxxx@yahoo.co.uk or xxxxxx@currently.com
 
 #This is "Application Password", not a main Yahoo Account password
 PASSWORD = "application_password_16_digits"  # Replace with your application-specific password
+
+# CardDAV server details. It is not a base URL, but Address Book URL
 CARD_DAV_URL = f"https://carddav.address.yahoo.com/dav/{USERNAME}/Contacts/"
 
 
