@@ -8,10 +8,11 @@ from xml.etree import ElementTree as ET
 
 # CardDAV server details
 #Replace xxxxxxxxx@yahoo.com by your actual Yahoo email address
-CARD_DAV_URL = "https://carddav.address.yahoo.com/dav/xxxxxxxxx@yahoo.com/Contacts/"
-USERNAME = "xxxxxxxxx@yahoo.com"
+# Configuration for CardDAV server
+USERNAME = "xxxxxxxxx@yahoo.com"  # Replace with your Yahoo email address
 #This is "Application Password", not a main Yahoo Account password
-PASSWORD = "application_password_16_digits"
+PASSWORD = "application_password_16_digits"  # Replace with your application-specific password
+CARD_DAV_URL = f"https://carddav.address.yahoo.com/dav/{USERNAME}/Contacts/"
 
 # XML body for the PROPFIND request
 PROPFIND_BODY = """<?xml version="1.0" encoding="UTF-8"?>
